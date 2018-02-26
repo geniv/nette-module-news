@@ -83,7 +83,7 @@ class NewsPresenter extends ModulesBasePresenter
 
         $detail = $this->newsModel->getDetail($id);
         if ($detail) {
-            $this['breadCrumb']->addLink('breadcrumb-news-' . Strings::webalize($detail->title), null, 'fa fa-newspaper-o');
+            $this['breadCrumb']->addLink('breadcrumb-news-' . Strings::webalize($detail['title']), null, 'fa fa-newspaper-o');
 
             $this->template->detail = $detail;
             $this->template->gallery = $this->newsModel->getListNewsGallery($id);
