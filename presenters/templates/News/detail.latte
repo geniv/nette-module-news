@@ -1,0 +1,41 @@
+{block title}{$detail->title}{/block}
+{*{block description}news-description{/block}*}
+{block slug}news-slug/{$detail->title}{/block}
+
+{block content}
+
+    {if $detail}
+        {* {$detail->Title}, {$detail->Description|noescape}, {$detail->Added} *}
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2>{$detail->title}</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-7 col-sm-8">
+                        {$detail->perex|noescape} <br/>
+                        {$detail->description|noescape} <br/>
+                    </div>
+                    <div class="col-lg-4 col-md-5 col-sm-4 light-gallery-single">
+                        <a href="{$presenter->context->parameters['news']['pathToImage']}{$detail->image}">
+                            <img src="{$presenter->context->parameters['news']['pathToImage']}{$detail->image}" alt="{$detail->title}" class="img-responsive center-block">
+                        </a>
+                    </div>
+                </div>
+                <div n:if="count($gallery) > 1" class="row light-gallery">
+                    {foreach $gallery as $item}
+                        {* {$item->Image}, {$item->Title}<br /> *}
+                        <div class="col-lg-2 col-md-4 col-md-offset-0 col-sm-8 col-sm-offset-2">
+                            <a class="thumbnail" href="{$presenter->context->parameters['news']['pathToImageGallery']}{$item->image}" data-exthumbimage="{$presenter->context->parameters['news']['pathToImageGallery']}{$item->image|addTag:'thumb2'}">
+                                <img src="{$presenter->context->parameters['news']['pathToImageGallery']}{$item->image|addTag:'thumb'}" alt="{$item->title}" class="img-responsive">
+                            </a>
+                        </div>
+                    {/foreach}
+                </div>
+            </div>
+        </main>
+    {/if}
+
+{/block}

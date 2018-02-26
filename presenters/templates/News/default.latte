@@ -1,0 +1,41 @@
+{*{block title}news-default-title{/block}*}
+{*{block description}default description{/block} *}
+{block slug}news-slug{/block}
+{*{$textStranky|noescape|striptags|strip|trim|truncate:250}*}
+{*{control texts:content 'peceOKasmir'|noescape|striptags|strip|trim|truncate:250}*}
+
+{block content}
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>{_'news-h2'}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div n:snippet="news" data-ajax-append="true">
+                        <div n:foreach="$news as $item" class="news-entry">
+                            <h3><a n:href="News:detail, $item->id">{$item->title}</a></h3>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="news-perex">{$item->perex|noescape}</div>
+                                </div>
+                                <div class="col-sm-4" n:ifset="$item->image">
+                                    <a n:href="News:detail, $item->id">
+                                        <img src="{$presenter->context->parameters['news']['pathToImage']}{$item->image}" alt="{$item->title}" title="{$item->title}" class="img-responsive center-block"/><br/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div n:snippet="more" class="text-center">
+                        <a n:href="More! $offset" n:if="$showMore" class="ajax btn btn-default">show more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{/block}
