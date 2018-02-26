@@ -79,7 +79,7 @@ class NewsPresenter extends ModulesBasePresenter
      */
     public function renderDetail($id)
     {
-        $this['breadCrumb']->addLink('breadcrumb-news', '//:News:', 'fa fa-newspaper-o');
+        $this['breadCrumb']->addLink('breadcrumb-news', ['//:News:'], 'fa fa-newspaper-o');
 
         $detail = $this->newsModel->getDetail($id);
         if ($detail) {
