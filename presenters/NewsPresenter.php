@@ -23,14 +23,10 @@ class NewsPresenter extends ModulesBasePresenter
 
     /**
      * Startup.
-     *
-     * @throws \Nette\Application\AbortException
      */
     protected function startup()
     {
         parent::startup();
-
-        $this->redirect(':Homepage:');  // default redirect for not use this presenter
 
         $this->itemsPerPage = $this->context->parameters['news']['itemsPerPage'];
     }
