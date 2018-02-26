@@ -37,7 +37,7 @@ class NewsPresenter extends ModulesBasePresenter
      */
     public function renderDefault()
     {
-        $this['breadCrumb']->addLink('breadcrumb-news', null, 'fa fa-newspaper-o');
+        $this['breadCrumb']->addLink('breadcrumb-news', [], 'fa fa-newspaper-o');
 
         $this->template->offset = $this->offset;
 
