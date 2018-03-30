@@ -64,14 +64,9 @@ class News
      */
     public function getList(): Fluent
     {
-        return $this->connection->select('n.id,' .
-            'IFNULL(lo_nhl.title, nhl.title) title,' .
-            'IFNULL(lo_nhl.perex, nhl.perex) perex,' .
-            'IFNULL(lo_nhl.description, nhl.description) description,' .
-            'n.image, n.added, n.visible, n.visible_on_homepage')
+        return $this->connection->select('n.id, nhl.title, nhl.perex,  nhl.description, n.image, n.added, n.visible, n.visible_on_homepage')
             ->from($this->tableNews)->as('n')
-            ->leftJoin($this->tableNewsHasLocale)->as('nhl')->on('nhl.id_news=n.id')->and('nhl.id_locale IS NULL')
-            ->leftJoin($this->tableNewsHasLocale)->as('lo_nhl')->on('lo_nhl.id_news=n.id')->and('lo_nhl.id_locale=%i', $this->idLocale)
+            ->leftJoin($this->tableNewsHasLocale)->as('nhl')->on('nhl.id_news=n.id')->and(['nhl.id_locale' => $this->idLocale])
             ->where(['n.visible' => true])
             ->orderBy('n.added')->desc();
     }
@@ -111,12 +106,9 @@ class News
      */
     public function getListNewsGallery($idNews): Fluent
     {
-        return $this->connection->select('ng.id,' .
-            'IFNULL(lo_ghl.title, ghl.title) title,' .
-            'ng.id_news, ng.image, ng.added, ng.visible, ng.visible_on_homepage')
+        return $this->connection->select('ng.id, ghl.title, ng.id_news, ng.image, ng.added, ng.visible, ng.visible_on_homepage')
             ->from($this->tableNewsGallery)->as('ng')
-            ->leftJoin($this->tableNewsGalleryHasLocale)->as('ghl')->on('ghl.id_news_gallery=ng.id')->and('ghl.id_locale IS NULL')
-            ->leftJoin($this->tableNewsGalleryHasLocale)->as('lo_ghl')->on('lo_ghl.id_news_gallery=ng.id')->and('lo_ghl.id_locale=%i', $this->idLocale)
+            ->leftJoin($this->tableNewsGalleryHasLocale)->as('ghl')->on('ghl.id_news_gallery=ng.id')->and(['ghl.id_locale' => $this->idLocale])
             ->where(['ng.id_news' => $idNews, 'ng.visible' => true])
             ->orderBy('ng.position')->asc();
     }
